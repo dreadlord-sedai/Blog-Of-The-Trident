@@ -12,5 +12,6 @@ class User(db.Model):
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
 
+    # The __repr__ method tells Python how to print objects of this class
     def __repr__(self):
         return '<User {}>'.format(self.username)
