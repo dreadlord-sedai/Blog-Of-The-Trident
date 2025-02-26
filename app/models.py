@@ -4,6 +4,7 @@ from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from app import db
+from flask_login import UserMixin
 
 # The User class represents users who write blog posts.
 class User(db.Model):
@@ -41,5 +42,10 @@ class Post(db.Model):
         
     author: so.Mapped[User] = so.relationship(back_populates='posts')
 
+    # The __repr__ method tells Python how to print objects of this class
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+    
+
+class User(UserMixin, db.Model):
+    # ...
