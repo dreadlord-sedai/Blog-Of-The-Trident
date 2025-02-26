@@ -101,6 +101,8 @@ def before_request():
 @login_required
 def edit_profile():
     form = EditProfileForm()
+    # if the form is submitted and valid, the code updates the current_user object with the new values,
+    # and commits the changes to the database
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
