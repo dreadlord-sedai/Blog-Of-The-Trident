@@ -7,6 +7,13 @@ from app import db
 from flask_login import UserMixin
 
 # The User class represents users who write blog posts.
+# User class is a subclass of db.Model, which declares the class as a model for a database table.
+# Each class variable represents a database field in the table.
+# The id field is the primary key, which is used to uniquely identify each user in the table.
+# The username and email fields are indexed and must be unique.
+# The password_hash field is not a plain text password, but a secure hash.
+# The posts field is a one-to-many relationship to the Post class, which means that for each user, there can be multiple blog posts.
+# The back_populates argument defines the name of a field that will be added to the related class that will point back to this class.
 class User(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True,
