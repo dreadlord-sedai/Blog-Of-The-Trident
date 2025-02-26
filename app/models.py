@@ -1,9 +1,11 @@
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from app import db
 
+# The User class represents users who write blog posts.
 class User(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True,
@@ -18,7 +20,17 @@ class User(db.Model):
     # The __repr__ method tells Python how to print objects of this class
     def __repr__(self):
         return '<User {}>'.format(self.username)
+    
+    # The set_password method takes a password, hashes it, and stores it in the password_hash field
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
 
+    # The check_password method checks the password against the hash
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+# The Post class represents blog posts written by users.
 class Post(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     body: so.Mapped[str] = so.mapped_column(sa.String(140))
