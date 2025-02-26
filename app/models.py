@@ -1,5 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timezone
+from hashlib import md5
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
@@ -31,6 +32,10 @@ class User(UserMixin, db.Model):
     # The __repr__ method tells Python how to print objects of this class
     def __repr__(self):
         return '<User {}>'.format(self.username)
+    
+    def avatar(self, size):
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
     
     # The set_password method takes a password, hashes it, and stores it in the password_hash field
     def set_password(self, password):
