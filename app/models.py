@@ -17,7 +17,7 @@ from app import login
 # The password_hash field is not a plain text password, but a secure hash.
 # The posts field is a one-to-many relationship to the Post class, which means that for each user, there can be multiple blog posts.
 # The back_populates argument defines the name of a field that will be added to the related class that will point back to this class.
-class User(db.Model):
+class User(UserMixin, db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True,
                                                  unique=True)
@@ -39,6 +39,11 @@ class User(db.Model):
     # The check_password method checks the password against the hash
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+# The user_loader callback is used to reload the user object from the user ID stored in the session.
+@login.user_loader
+def load_user(id):
+    return db.session.get(User, int(id))
 
 
 # The Post class represents blog posts written by users.
@@ -56,13 +61,7 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post {}>'.format(self.body)
 
-# The UserMixin class provides default implementations for the methods that Flask-Login expects user objects to have.
-class User(UserMixin, db.Model):
-    #...
 
-# The user_loader callback is used to reload the user object from the user ID stored in the session.
-@login.user_loader
-def load_user(id):
-    return db.session.get(User, int(id))
+
 
 
