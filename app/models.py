@@ -8,6 +8,7 @@ from flask_login import UserMixin
 
 # The User class represents users who write blog posts.
 # User class is a subclass of db.Model, which declares the class as a model for a database table.
+# The db.Model is a base class for all models in Flask-SQLAlchemy. (See __init__.py)
 # Each class variable represents a database field in the table.
 # The id field is the primary key, which is used to uniquely identify each user in the table.
 # The username and email fields are indexed and must be unique.
