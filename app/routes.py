@@ -11,11 +11,6 @@ from app.models import User
 @app.route("/index")
 @login_required
 def index():
-    user = {"username": "Fabio"}
-    posts = [
-        {"author": {"username": "Robb Stark"}, "body": "I am the Young Wolf."},
-        {"author": {"username": "Greatjon Umber"}, "body": "The King in the North!"},
-    ]
     return render_template("index.html", title="Home", user=user, posts=posts)
 
 
