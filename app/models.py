@@ -7,12 +7,6 @@ from app import db
 from flask_login import UserMixin
 from app import login
 
-@login.user_loader
-def load_user(id):
-    return db.session.get(User, int(id))
-
-class User(UserMixin, db.Model):
-    #...
 
 # The User class represents users who write blog posts.
 # User class is a subclass of db.Model, which declares the class as a model for a database table.
@@ -61,5 +55,14 @@ class Post(db.Model):
     # The __repr__ method tells Python how to print objects of this class
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+# The UserMixin class provides default implementations for the methods that Flask-Login expects user objects to have.
+class User(UserMixin, db.Model):
+    #...
+
+# The user_loader callback is used to reload the user object from the user ID stored in the session.
+@login.user_loader
+def load_user(id):
+    return db.session.get(User, int(id))
 
 
