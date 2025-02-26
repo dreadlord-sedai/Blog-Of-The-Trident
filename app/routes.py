@@ -1,9 +1,10 @@
 from flask import render_template, flash, redirect, url_for, request
 from urllib.parse import urlsplit
+from datetime import datetime, timezone
+import sqlalchemy as sa
+from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db # Import the `app` instance from `__init__.py`
 from app.forms import LoginForm, RegistrationForm
-from flask_login import current_user, login_user, logout_user, login_required
-import sqlalchemy as sa
 from app.models import User
 
 
@@ -87,3 +88,10 @@ def user(username):
         {"author": user, "body": "Test post #2"},
     ]
     return render_template("user.html", user=user, posts=posts)
+
+# The before_request decorator registers a function to run before the view function, no matter what URL is requested.
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.now(timezone.utc)
+        db.session.commit()
