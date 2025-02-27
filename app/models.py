@@ -60,6 +60,7 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
     
+    # The followers and following fields are used to represent a many-to-many relationship between users.
     following: so.WriteOnlyMapped['User'] = so.relationship(
         secondary=followers, primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
@@ -69,7 +70,7 @@ class User(UserMixin, db.Model):
         secondaryjoin=(followers.c.follower_id == id),
         back_populates='following')
     
-    
+
     
 # The user_loader callback is used to reload the user object from the user ID stored in the session.
 @login.user_loader
