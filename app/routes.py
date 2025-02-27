@@ -100,7 +100,7 @@ def before_request():
 @app.route("/edit_profile", methods=["GET", "POST"])
 @login_required
 def edit_profile():
-    form = EditProfileForm()
+    form = EditProfileForm(current_user.username)
     # if the form is submitted and valid, the code updates the current_user object with the new values,
     # and commits the changes to the database
     if form.validate_on_submit():
@@ -113,4 +113,5 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template("edit_profile.html", title="Edit Profile", form=form)
+
     
