@@ -28,11 +28,15 @@ if not app.debug:
         secure = None
         if app.config['MAIL_USE_TLS']:
             secure = ()
+        # The SMTPHandler class sends logs via email. The arguments to the class are the mail server,
+        #  the from address, the to address, the subject, and the credentials.
         mail_handler = SMTPHandler(
             mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
             fromaddr='no-reply@' + app.config['MAIL_SERVER'],
             toaddrs=app.config['ADMINS'], subject='The Blog of the Trident Failure',
             credentials=auth, secure=secure)
+        # The setLevel method is used to set the logging level, and the addHandler method is used to
+        # attach the handler to the app.logger object.
         mail_handler.setLevel(logging.ERROR)
         app.logger.addHandler(mail_handler)
 
