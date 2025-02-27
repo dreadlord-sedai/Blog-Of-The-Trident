@@ -8,6 +8,16 @@ from app import db
 from flask_login import UserMixin
 from app import login
 
+# The followers table is an auxiliary (association) table that is used to represent a many-to-many relationship between users.
+# The followers table is not a model, so it does not have a class.
+# It is defined as an instance of the Table class from the SQLAlchemy package.
+followers = sa.Table(
+    'followers',
+    db.metadata,
+    sa.Column('follower_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True),
+    sa.Column('followed_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True)
+)
+
 
 # The User class represents users who write blog posts.
 # User class is a subclass of db.Model, which declares the class as a model for a database table.
@@ -70,8 +80,5 @@ class Post(db.Model):
     # The __repr__ method tells Python how to print objects of this class
     def __repr__(self):
         return '<Post {}>'.format(self.body)
-
-
-
 
 
