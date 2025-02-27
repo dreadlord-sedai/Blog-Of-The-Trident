@@ -30,15 +30,10 @@ class UserModelCase(unittest.TestCase):
 
     # The test_avatar() method tests the avatar generation function.
     def test_avatar(self):
-        u = User(username="john", email="john@me.com")
-        self.assertEqual(
-            u.avatar(128),
-            (
-            'https://www.gravatar.com/avatar/'
-            'd4c74594d841139328695756648b6bd6'
-            '?d=identicon&s=128'
-            )
-        )
+        u = User(username='john', email='john@example.com')
+        self.assertEqual(u.avatar(128), ('https://www.gravatar.com/avatar/'
+                                         'd4c74594d841139328695756648b6bd6'
+                                         '?d=identicon&s=128'))
 
     # The test_follow() method tests the follow and unfollow methods.
     def test_follow(self):
