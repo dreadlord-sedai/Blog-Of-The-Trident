@@ -87,6 +87,11 @@ def user(username):
         {"author": user, "body": "Test post #1"},
         {"author": user, "body": "Test post #2"},
     ]
+    
+    # The EmptyForm class is used to create forms that only have a submit button.
+    # This is used for forms that do not have any fields, such as the follow and unfollow forms.
+    # This EmtyForm class is used to create an instance of the form, which is then passed to the template.
+    # This form is used to render a follow and unfollow button for the user profile page.
     form = EmptyForm()
     return render_template("user.html", user=user, posts=posts, form=form)
 
