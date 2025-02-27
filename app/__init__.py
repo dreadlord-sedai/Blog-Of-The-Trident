@@ -1,5 +1,6 @@
 import logging
-from logging.handlers import SMTPHandler
+from logging.handlers import SMTPHandler, RotatingFileHandler
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -39,5 +40,19 @@ if not app.debug:
         # attach the handler to the app.logger object.
         mail_handler.setLevel(logging.ERROR)
         app.logger.addHandler(mail_handler)
+
+    # The RotatingFileHandler class is used to write logs to a file. The arguments to the class are the file name,
+    # the maximum size of the file in bytes, and the number of backup files to keep.
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+    file_handler = RotatingFileHandler('logs/blog.log', maxBytes=10240,
+                                       backupCount=10)
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
+
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('Blog startup')
 
 from app import routes, models, errors
