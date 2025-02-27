@@ -53,3 +53,9 @@ class EditProfileForm(FlaskForm):
                 User.username == username.data))
             if user is not None:
                 raise ValidationError('Please use a different username.')
+            
+
+# The EmptyForm class is used to create forms that only have a submit button.
+# This is used for forms that do not have any fields, such as the follow and unfollow forms.
+class EmptyForm(FlaskForm):
+    submit = SubmitField('Submit')
