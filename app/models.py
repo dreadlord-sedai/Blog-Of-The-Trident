@@ -92,6 +92,18 @@ class User(UserMixin, db.Model):
             self.following.select().subquery())
         return db.session.scalar(query)
     
+    # The following_posts method returns a query that includes all the posts written by the people the user follows.
+    def following_posts(self):
+        Author = so.aliased(User)
+        Follower = so.aliased(User)
+        return (
+            sa.select(Post)
+            .join(Post.author.of_type(Author))
+            .join(Author.followers.of_type(Follower))
+            .where(Follower.id == self.id)
+            .order_by(Post.timestamp.desc())
+        )
+    
 
     
 # The user_loader callback is used to reload the user object from the user ID stored in the session.
