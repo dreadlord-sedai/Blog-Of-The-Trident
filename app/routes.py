@@ -159,5 +159,14 @@ def unfollow(username):
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
+    
+# The explore view function is used to display all posts from all users.
+@app.route('/explore')
+@login_required
+def explore():
+    query = sa.select(Post).order_by(Post.timestamp.desc())
+    posts = db.session.scalars(query).all()
+    # index.html template is reused and rendered with the posts from all users.
+    return render_template("index.html", title="Explore", posts=posts)
 
     
