@@ -7,6 +7,9 @@ import sqlalchemy.orm as so
 from app import db
 from flask_login import UserMixin
 from app import login
+from time import time
+import jwt
+from app import app
 
 # The followers table is an auxiliary (association) table that is used to represent a many-to-many relationship between users.
 # The followers table is not a model, so it does not have a class.
@@ -107,6 +110,24 @@ class User(UserMixin, db.Model):
             .group_by(Post.id)
             .order_by(Post.timestamp.desc())
         )
+    
+    # Generates a JWT token that is used to reset the user's password.
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+            {'reset_password': self.id, 'exp': time() + expires_in},
+            app.config['SECRET_KEY'], algorithm='HS256')
+    
+    # A static method that takes a token as an argument and verifies it.
+    # This is static because it does not take the user object as an argument. (No instance is needed)
+    # If the token is valid, the method returns the user object associated with the token.
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return db.session.get(User, id)
     
 
     
