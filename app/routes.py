@@ -19,8 +19,24 @@ def index():
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('index'))
-    posts = db.session.scalars(current_user.following_posts()).all()
-    return render_template("index.html", title="Home Page", form=form, posts=posts)
+    # The paginate() method is used to paginate the posts. The paginate() method returns a Pagination object,
+    # which contains the posts for the current page, as well as other information about the pagination.
+    page = request.args.get('page', 1, type=int)
+    posts = db.paginate(current_user.following_posts(), page=page,
+                        per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    return render_template("index.html", title="Home Page", form=form, posts=posts.items)
+
+
+# The explore view function is used to display all posts from all users.
+@app.route('/explore')
+@login_required
+def explore():
+    page = request.args.get('page', 1, type=int)
+    query = sa.select(Post).order_by(Post.timestamp.desc())
+    posts = db.paginate(query, page=page,
+                        per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    # index.html template is reused and rendered with the posts from all users.
+    return render_template("index.html", title="Explore", posts=posts)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -160,13 +176,5 @@ def unfollow(username):
     else:
         return redirect(url_for('index'))
     
-# The explore view function is used to display all posts from all users.
-@app.route('/explore')
-@login_required
-def explore():
-    query = sa.select(Post).order_by(Post.timestamp.desc())
-    posts = db.session.scalars(query).all()
-    # index.html template is reused and rendered with the posts from all users.
-    return render_template("index.html", title="Explore", posts=posts)
 
     
