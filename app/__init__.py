@@ -1,3 +1,4 @@
+from flask_mail import Mail
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
@@ -16,6 +17,10 @@ login = LoginManager(app)
 
 login = LoginManager(app)
 login.login_view = 'login'  # The 'login' view function name (not the URL) for the login page
+
+# The Mail class is used to create an instance of the Mail extension.
+# The instance is created with the app instance as an argument.
+mail = Mail(app)
 
 
 # The following code is used to send error logs to the email address specified in the ADMINS configuration variable.
@@ -55,4 +60,11 @@ if not app.debug:
     app.logger.setLevel(logging.INFO)
     app.logger.info('Blog startup')
 
+
+
+
+# The bottom import is a workaround to circular imports, a common problem in Flask applications.
+# You are going to see that the routes module needs to import the app variable defined in this script,
+# so putting one of the reciprocal imports at the bottom avoids the error that results from the mutual
+# import dependency between these two files.
 from app import routes, models, errors
