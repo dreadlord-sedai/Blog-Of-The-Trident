@@ -16,4 +16,7 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['dahamifabbio@gmail.com']
+
+    # The POSTS_PER_PAGE configuration variable is used to set the number of blog posts to display per page.
+    POSTS_PER_PAGE = 3
     
