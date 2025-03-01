@@ -18,5 +18,5 @@ class Config:
     ADMINS = ['dahamifabbio@gmail.com']
 
     # The POSTS_PER_PAGE configuration variable is used to set the number of blog posts to display per page.
-    POSTS_PER_PAGE = 3
+    POSTS_PER_PAGE = 25
     
