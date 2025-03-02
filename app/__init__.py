@@ -1,3 +1,4 @@
+from flask_moment import Moment
 from flask_mail import Mail
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
@@ -21,6 +22,9 @@ login.login_view = 'login'  # The 'login' view function name (not the URL) for t
 # The Mail class is used to create an instance of the Mail extension.
 # The instance is created with the app instance as an argument.
 mail = Mail(app)
+
+# The Flask-Monent extension is used to display timestamps in a more human-readable format.
+moment = Moment(app)
 
 
 # The following code is used to send error logs to the email address specified in the ADMINS configuration variable.
