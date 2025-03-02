@@ -23,4 +23,6 @@ class Config:
     # The LANGUAGES configuration variable is used to specify the languages supported by the application.
     LANGUAGES = ['en', 'es']
 
+    # The MS_TRANSLATOR_KEY configuration variable is used to store the Microsoft Translator API key.
+    MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
     
