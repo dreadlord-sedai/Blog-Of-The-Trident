@@ -3,11 +3,17 @@ from flask_mail import Mail
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from config import Config
+from flask_babel import Babel
+
+
+# The Babel class is used to configure the language support in the application.
+def get_locale():
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 # The app package is defined by the app directory and the __init__.py script, and it is also defined as the instance of the Flask class.
 app = Flask(__name__)
@@ -25,6 +31,9 @@ mail = Mail(app)
 
 # The Flask-Monent extension is used to display timestamps in a more human-readable format.
 moment = Moment(app)
+
+# The Babel extension is used to handle translations and localization.
+babel = Babel(app,locale_selector=get_locale)
 
 
 # The following code is used to send error logs to the email address specified in the ADMINS configuration variable.
