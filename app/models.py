@@ -151,5 +151,10 @@ class Post(db.Model):
     # The __repr__ method tells Python how to print objects of this class
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+    
+    # The language field is used to store the language of the post.
+    language: so.Mapped[Optional[str]] = so.mapped_column(sa.String(5))
+    
+
 
 
