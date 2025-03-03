@@ -1,5 +1,5 @@
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+from dotenv import load_dotenv
 
 class Config:
     # The SECRET_KEY configuration variable is an important part in most Flask applications.
