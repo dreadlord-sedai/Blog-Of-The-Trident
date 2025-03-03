@@ -1,6 +1,9 @@
 import os
 from dotenv import load_dotenv
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
+
 class Config:
     # The SECRET_KEY configuration variable is an important part in most Flask applications.
     # It is used by Flask and many of its extensions to encrypt data, including cookies, request data, and the CSRF token.
