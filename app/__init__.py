@@ -1,7 +1,7 @@
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
-from flask import Flask, request
+from flask import Flask, request, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
@@ -11,73 +11,74 @@ from flask_babel import Babel, lazy_gettext as _l
 from config import Config
 
 
-
-# The Babel class is used to configure the language support in the application.
 def get_locale():
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-# The app package is defined by the app directory and the __init__.py script, and it is also defined as the instance of the Flask class.
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-login = LoginManager(app)
-login = LoginManager(app)
-login.login_view = 'login'  # The 'login' view function name (not the URL) for the login page
-
-# The Mail class is used to create an instance of the Mail extension.
-# The instance is created with the app instance as an argument.
-mail = Mail(app)
-
-# The Flask-Monent extension is used to display timestamps in a more human-readable format.
-moment = Moment(app)
-
-# The Babel extension is used to handle translations and localization.
-babel = Babel(app,locale_selector=get_locale)
+    return request.accept_languages.best_match(current_app.config['LANGUAGES'])
 
 
-# The following code is used to send error logs to the email address specified in the ADMINS configuration variable.
-# This is done using the SMTPHandler class from the logging.handlers module.
-# The mail server details are read from the configuration.
-if not app.debug:
-    if app.config['MAIL_SERVER']:
-        auth = None
-        if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
-            auth = (app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'])
-        secure = None
-        if app.config['MAIL_USE_TLS']:
-            secure = ()
-        # The SMTPHandler class sends logs via email. The arguments to the class are the mail server,
-        #  the from address, the to address, the subject, and the credentials.
-        mail_handler = SMTPHandler(
-            mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
-            fromaddr='no-reply@' + app.config['MAIL_SERVER'],
-            toaddrs=app.config['ADMINS'], subject='The Blog of the Trident Failure',
-            credentials=auth, secure=secure)
-        # The setLevel method is used to set the logging level, and the addHandler method is used to
-        # attach the handler to the app.logger object.
-        mail_handler.setLevel(logging.ERROR)
-        app.logger.addHandler(mail_handler)
-
-    # The RotatingFileHandler class is used to write logs to a file. The arguments to the class are the file name,
-    # the maximum size of the file in bytes, and the number of backup files to keep.
-    if not os.path.exists('logs'):
-        os.mkdir('logs')
-    file_handler = RotatingFileHandler('logs/blog.log', maxBytes=10240,
-                                       backupCount=10)
-    file_handler.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
-    file_handler.setLevel(logging.INFO)
-    app.logger.addHandler(file_handler)
-
-    app.logger.setLevel(logging.INFO)
-    app.logger.info('Blog startup')
+db = SQLAlchemy()
+migrate = Migrate()
+login = LoginManager()
+login.login_view = 'auth.login'
+login.login_message = _l('Please log in to access this page.')
+mail = Mail()
+moment = Moment()
+babel = Babel()
 
 
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login.init_app(app)
+    mail.init_app(app)
+    moment.init_app(app)
+    babel.init_app(app, locale_selector=get_locale)
+
+    from app.errors import bp as errors_bp
+    app.register_blueprint(errors_bp)
+
+    from app.auth import bp as auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+
+    from app.main import bp as main_bp
+    app.register_blueprint(main_bp)
+
+    from app.cli import bp as cli_bp
+    app.register_blueprint(cli_bp)
+
+    if not app.debug and not app.testing:
+        if app.config['MAIL_SERVER']:
+            auth = None
+            if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
+                auth = (app.config['MAIL_USERNAME'],
+                        app.config['MAIL_PASSWORD'])
+            secure = None
+            if app.config['MAIL_USE_TLS']:
+                secure = ()
+            mail_handler = SMTPHandler(
+                mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
+                fromaddr='no-reply@' + app.config['MAIL_SERVER'],
+                toaddrs=app.config['ADMINS'], subject='Microblog Failure',
+                credentials=auth, secure=secure)
+            mail_handler.setLevel(logging.ERROR)
+            app.logger.addHandler(mail_handler)
+
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        file_handler = RotatingFileHandler('logs/microblog.log',
+                                           maxBytes=10240, backupCount=10)
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s '
+            '[in %(pathname)s:%(lineno)d]'))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('Microblog startup')
+
+    return app
 
 
-# The bottom import is a workaround to circular imports, a common problem in Flask applications.
-# You are going to see that the routes module needs to import the app variable defined in this script,
-# so putting one of the reciprocal imports at the bottom avoids the error that results from the mutual
-# import dependency between these two files.
-from app import routes, models, errors
+from app import models
