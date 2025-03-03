@@ -1,17 +1,22 @@
-import os
-os.environ['DATABASE_URL'] = 'sqlite://'
-
 from datetime import datetime, timezone, timedelta
 import unittest
-from app import app, db
+from app import create_app, db
 from app.models import User, Post
+from config import Config
+
+
+class TestConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite://'
+
 
 # The User model class is used to represent users in the application.
 
 class UserModelCase(unittest.TestCase):
     # The setUp() method creates an in-memory SQLite database and creates all the tables in the database.
     def setUp(self):
-        self.app_context = app.app_context()
+        self.app = create_app(TestConfig)
+        self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
 
