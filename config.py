@@ -28,4 +28,7 @@ class Config:
 
     # The MS_TRANSLATOR_KEY configuration variable is used to store the Microsoft Translator API key.
     MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
+
+    # The ELASTICSEARCH_URL configuration variable is used to store the URL of the Elasticsearch server.
+    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
     
