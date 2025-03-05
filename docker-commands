@@ -1,1 +1,5 @@
 docker run --name mysql -d -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_DATABASE=blog -e MYSQL_USER=blog -e MYSQL_PASSWORD=<database-password> --network blog-network mysql:latest
+
+docker build -t microblog:latest .
+
+docker run --name microblog -d -p 8000:5000 --rm -e SECRET_KEY=my-secret-key -e MAIL_SERVER=smtp.googlemail.com -e MAIL_PORT=587 -e MAIL_USE_TLS=true -e MAIL_USERNAME=<your-gmail-username> -e MAIL_PASSWORD=<your-gmail-password> --network blog-network -e DATABASE_URL=mysql+pymysql://blog:<database-password>@mysql/blog run:latest
