@@ -1,5 +1,13 @@
 docker run --name mysql -d -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_DATABASE=blog -e MYSQL_USER=blog -e MYSQL_PASSWORD=<database-password> --network blog-network mysql:latest
 
-docker build -t microblog:latest .
+docker build -t blog:latest .
 
 docker run --name microblog -d -p 8000:5000 --rm -e SECRET_KEY=my-secret-key -e MAIL_SERVER=smtp.googlemail.com -e MAIL_PORT=587 -e MAIL_USE_TLS=true -e MAIL_USERNAME=<your-gmail-username> -e MAIL_PASSWORD=<your-gmail-password> --network blog-network -e DATABASE_URL=mysql+pymysql://blog:<database-password>@mysql/blog run:latest
+
+docker run --name elasticsearch -d --rm -p 9200:9200 -e discovery.type=single-node -e xpack.security.enabled=false --network blog-network -t docker.elastic.co/elasticsearch/elasticsearch:8.11.1
+
+docker run --name blog -d -p 8000:5000 --rm -e SECRET_KEY=my-secret-key -e MAIL_SERVER=smtp.googlemail.com -e MAIL_PORT=587 -e MAIL_USE_TLS=true -e MAIL_USERNAME=<your-gmail-username> -e MAIL_PASSWORD=<your-gmail-password> --network blog-network -e DATABASE_URL=mysql+pymysql://blog:<database-password>@mysql/blog -e ELASTICSEARCH_URL=http://elasticsearch:9200 run:latest
+
+docker tag run:latest dreadlord333/run:latest
+ 
+docker push dreadlord333/run:latest
