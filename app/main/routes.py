@@ -6,8 +6,8 @@ from flask_babel import _, get_locale
 import sqlalchemy as sa
 from langdetect import detect, LangDetectException
 from app import db
-from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm
-from app.models import User, Post
+from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, MessageForm
+from app.models import User, Post, Message
 from app.translate import translate
 from app.main import bp
 from flask import g
@@ -176,3 +176,19 @@ def user_popup(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
     form = EmptyForm()
     return render_template('user_popup.html', user=user, form=form)
+
+
+@bp.route('/send_message/<recipient>', methods=['GET', 'POST'])
+@login_required
+def send_message(recipient):
+    user = db.first_or_404(sa.select(User).where(User.username == recipient))
+    form = MessageForm()
+    if form.validate_on_submit():
+        msg = Message(author=current_user, recipient=user,
+                      body=form.message.data)
+        db.session.add(msg)
+        db.session.commit()
+        flash(_('Your message has been sent.'))
+        return redirect(url_for('main.user', username=recipient))
+    return render_template('send_message.html', title=_('Send Message'),
+                           form=form, recipient=recipient)
