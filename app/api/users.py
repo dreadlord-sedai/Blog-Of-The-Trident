@@ -1,4 +1,5 @@
 from app.api import bp
+from app import db
 from app.models import User
 
 
