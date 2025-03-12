@@ -1,4 +1,4 @@
-from werkzeug.http import HTTP_STATUS_CODES
+from werkzeug.http import HTTP_STATUS_CODES, HTTPException
 from app import bp
 
 
