@@ -18,16 +18,17 @@
   - [Contact](#contact)
 
 ## Introduction
-Blog of the Trident is a microblogging platform built with Flask that allows users to create and share content, interact with other users, and customize their profiles. The application provides a clean, intuitive interface for writing and publishing blog posts, messaging other users, and managing personal accounts.
+Blog of the Trident is a microblogging platform inspired by the world of A Song of Ice and Fire (Game of Thrones). Named after House Tully's sigil, this Flask-based application allows users to create and share content, interact with other users, and customize their profiles with ASOIF themes. Whether you're pledging allegiance to House Stark or spreading the latest gossip from King's Landing, Blog of the Trident provides the perfect platform for all Westeros enthusiasts.
 
 ## Features
-- **User Authentication** - Secure registration and login system
-- **Profile Management** - Users can create, view, and edit their profiles
-- **Blog Creation** - Write, edit, and publish blog posts
-- **Messaging System** - Private messaging between users
-- **Responsive Design** - Mobile-friendly interface using Bootstrap and SASS
+- **User Authentication** - Secure registration and login system with house affiliations
+- **Profile Management** - Create and customize your profile with your favorite house banners and sigils
+- **Blog Creation** - Write, edit, and publish blog posts about the Seven Kingdoms
+- **Messaging System** - Send ravens (private messages) to other users
+- **Responsive Design** - Mobile-friendly interface using Bootstrap and SASS styled with ASOIF themes
 - **Database Integration** - SQLAlchemy with SQLite for efficient data management
-- **Error Handling** - Custom error pages and intuitive error responses
+- **Error Handling** - Custom error pages with ASOIF-themed messages
+- **House Selection** - Choose your house allegiance and display your house's colors
 
 ## Technologies Used
 - **Python**: Core programming language for backend development
@@ -35,7 +36,7 @@ Blog of the Trident is a microblogging platform built with Flask that allows use
 - **SQLAlchemy**: ORM for database operations
 - **SQLite**: Lightweight database for storing user and blog data
 - **Bootstrap**: Frontend framework for responsive design
-- **SASS**: CSS preprocessor for advanced styling
+- **SASS**: CSS preprocessor for advanced styling with house-themed color schemes
 - **Jinja2**: Template engine for Python
 - **WTForms**: Form handling and validation
 
@@ -132,26 +133,27 @@ To get a local copy up and running, follow these steps:
     ```
 
 ## Usage
-1. **Register an account** at the registration page.
+1. **Register an account** and choose your House allegiance.
 2. **Login** with your credentials.
-3. **Create a profile** or edit your existing one.
-4. **Write blog posts** by clicking on "New Post" button.
-5. **Browse other users'** blogs and profiles.
-6. **Send messages** to other users through the messaging system.
+3. **Create a profile** with your character name and customize it with your house's colors.
+4. **Write blog posts** about the latest events in Westeros by clicking the "New Scroll" button.
+5. **Browse other users'** blogs and profiles from across the Seven Kingdoms.
+6. **Send ravens** (messages) to other users through the messaging system.
 
 ## API Endpoints
 Blog of the Trident provides several API endpoints for programmatic access:
 
 - `GET /api/users/<id>` - Get user information
+- `GET /api/houses` - Get list of all houses
 - `GET /api/posts/<id>` - Get post information
 - `POST /api/posts` - Create a new post (authentication required)
 - `PUT /api/posts/<id>` - Update a post (authentication required)
 - `DELETE /api/posts/<id>` - Delete a post (authentication required)
 
 ## Error Handling
-The application includes custom error pages:
-- 404 Not Found
-- 500 Internal Server Error
+The application includes custom ASOIF-themed error pages:
+- 404 Not Found - "The page you seek is as lost as Arya Stark in Braavos"
+- 500 Internal Server Error - "Something went wrong, the Maesters are working on it"
 - Additional error handlers for API error responses
 
 ## Contributing
