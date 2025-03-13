@@ -1,11 +1,8 @@
 # Blog of the Trident
-
-<div align="center">
-  <img src="https://skillicons.dev/icons?i=flask,py,bootstrap,sass,sqlite" alt="Technologies Used">
   
   <!-- GOT-themed Banner (Replace with actual banner image link when available) -->
   <p align="center">
-    <img src="https://your-got-banner-image-url.png" alt="Blog of the Trident - A Song of Ice and Fire Themed Microblog" width="800">
+    <img src="images/banner.png" alt="Blog of the Trident - A Song of Ice and Fire Themed Microblog" width="800">
   </p>
 
   <p><em>The Realm's Premier Microblogging Platform</em></p>
