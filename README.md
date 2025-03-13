@@ -1,9 +1,40 @@
 # Blog of the Trident
 
-![Blog of the Trident Logo](https://skillicons.dev/icons?i=flask,py,bootstrap,sass,sqlite)
+<div align="center">
+  <img src="https://skillicons.dev/icons?i=flask,py,bootstrap,sass,sqlite" alt="Technologies Used">
+  
+  <!-- GOT-themed Banner (Replace with actual banner image link when available) -->
+  <p align="center">
+    <img src="https://your-got-banner-image-url.png" alt="Blog of the Trident - A Song of Ice and Fire Themed Microblog" width="800">
+  </p>
+
+  <p><em>The Realm's Premier Microblogging Platform</em></p>
+</div>
+
+## Screenshots
+<details>
+  <summary>Click to view screenshots</summary>
+  
+  ### Home Page
+  <img src="https://your-screenshot-url-1.png" alt="Home Page" width="700">
+  
+  ### User Profile - House Stark Theme
+  <img src="https://your-screenshot-url-2.png" alt="User Profile - House Stark Theme" width="700">
+  
+  ### Blog Post Creation
+  <img src="https://your-screenshot-url-3.png" alt="Blog Post Creation" width="700">
+  
+  ### Messaging Interface
+  <img src="https://your-screenshot-url-4.png" alt="Messaging Interface" width="700">
+</details>
 
 ## Table of Contents
 - [Blog of the Trident](#blog-of-the-trident)
+  - [Screenshots](#screenshots)
+    - [Home Page](#home-page)
+    - [User Profile - House Stark Theme](#user-profile---house-stark-theme)
+    - [Blog Post Creation](#blog-post-creation)
+    - [Messaging Interface](#messaging-interface)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Features](#features)
@@ -18,7 +49,7 @@
   - [Contact](#contact)
 
 ## Introduction
-Blog of the Trident is a microblogging platform inspired by the world of A Song of Ice and Fire (Game of Thrones). Named after House Tully's sigil, this Flask-based application allows users to create and share content, interact with other users, and customize their profiles with ASOIF themes. Whether you're pledging allegiance to House Stark or spreading the latest gossip from King's Landing, Blog of the Trident provides the perfect platform for all Westeros enthusiasts.
+Blog of the Trident is a microblogging platform inspired by the world of A Song of Ice and Fire (Game of Thrones). Named after the Lands of the Trident, this Flask-based application allows users to create and share content, interact with other users, and customize their profiles with ASOIF themes. Whether you're pledging allegiance to House Stark or spreading the latest gossip from King's Landing, Blog of the Trident provides the perfect platform for all Westeros enthusiasts.
 
 ## Features
 - **User Authentication** - Secure registration and login system with house affiliations
