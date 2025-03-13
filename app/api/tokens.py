@@ -14,4 +14,4 @@ def get_token():
 def revoke_token():
     token_auth.current_user().revoke_token()
     db.session.commit()
-    return '', 204
+    return '', 204 
