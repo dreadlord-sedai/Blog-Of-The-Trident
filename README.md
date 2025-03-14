@@ -1,11 +1,13 @@
 # Blog of the Trident
-  
+
   <!-- GOT-themed Banner (Replace with actual banner image link when available) -->
   <p align="center">
     <img src="./banner.png" alt="Blog of the Trident - A Song of Ice and Fire Themed Microblog" width="700" >
   </p>
 
-  <p><em>The Realm's Premier Microblogging Platform</em></p>
+  <p><em>The Realm's Premier Blogging Platform</em></p>
+
+  #### Video Demo:  <https://youtu.be/zBtLuOzdeEc>
 </div>
 
 ## Screenshots
