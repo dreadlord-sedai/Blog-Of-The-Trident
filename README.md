@@ -51,12 +51,11 @@ Blog of the Trident is a microblogging platform inspired by the world of A Song 
 ## Features
 - **User Authentication** - Secure registration and login system with house affiliations
 - **Profile Management** - Create and customize your profile with your favorite house banners and sigils
-- **Blog Creation** - Write, edit, and publish blog posts about the Seven Kingdoms
+- **Blog Creation** - Write, edit, and publish blog posts (letters) about the Seven Kingdoms
 - **Messaging System** - Send ravens (private messages) to other users
 - **Responsive Design** - Mobile-friendly interface using Bootstrap and SASS styled with ASOIF themes
 - **Database Integration** - SQLAlchemy with SQLite for efficient data management
 - **Error Handling** - Custom error pages with ASOIF-themed messages
-- **House Selection** - Choose your house allegiance and display your house's colors
 
 ## Technologies Used
 - **Python**: Core programming language for backend development
