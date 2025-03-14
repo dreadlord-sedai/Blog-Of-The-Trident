@@ -1,44 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <table class="table table-hover">
-        <tr>
-            <td width="256px"><img src="{{ user.avatar(256) }}"></td>
-            <td>
-                <h1>{{ _('User') }}: {{ user.username }}</h1>
+    <div class="profile-section">
+        <div class="user-info">
+            <div class="user-avatar">
+                <img src="{{ user.avatar(256) }}" alt="{{ user.username }}" class="profile-avatar">
+            </div>
+            <div class="user-name">
+                {{ _('Lord %(username)s of House %(username)s', username=user.username) }}
+            </div>
+            <div class="user-stats">
                 {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-                {% if user.last_seen %}
-                <p>{{ _('Last seen on') }}: {{ moment(user.last_seen).format('LLL') }}</p>
-                {% endif %}
-                <p>{{ _('%(count)d followers', count=user.followers_count()) }}, {{ _('%(count)d following', count=user.following_count()) }}</p>
+                <p>{{ _('Last seen in the Realm: %(when)s', when=moment(user.last_seen).fromNow()) }}</p>
+                <p>{{ _('%(count)d Bannermen', count=user.followers_count()) }}, {{ _('%(count)d Sworn To', count=user.following_count()) }}</p>
+                
                 {% if user == current_user %}
-                <p><a href="{{ url_for('main.edit_profile') }}">{{ _('Edit your profile') }}</a></p>
+                <div class="edit-profile">
+                    <a href="{{ url_for('main.edit_profile') }}" class="btn btn-primary">
+                        {{ _('Edit Your House Details') }}
+                    </a>
+                </div>
                 {% elif not current_user.is_following(user) %}
-                <p>
+                <div class="follow-actions">
                     <form action="{{ url_for('main.follow', username=user.username) }}" method="post">
                         {{ form.hidden_tag() }}
-                        {{ form.submit(value=_('Follow'), class_='btn btn-primary') }}
+                        {{ form.submit(value=_('Pledge Fealty'), class_='btn btn-primary') }}
                     </form>
-                </p>
+                </div>
                 {% else %}
-                <p>
+                <div class="follow-actions">
                     <form action="{{ url_for('main.unfollow', username=user.username) }}" method="post">
                         {{ form.hidden_tag() }}
-                        {{ form.submit(value=_('Unfollow'), class_='btn btn-primary') }}
+                        {{ form.submit(value=_('Break Oath'), class_='btn btn-primary') }}
                     </form>
-                </p>
+                </div>
                 {% endif %}
                 {% if user != current_user %}
-                <p>
-                    <a href="{{ url_for('main.send_message',
-                                        recipient=user.username) }}">
-                        {{ _('Send private message') }}
+                <div class="message-actions">
+                    <a href="{{ url_for('main.send_message', recipient=user.username) }}" class="btn btn-primary">
+                        {{ _('Send Ravens') }}
                     </a>
-                </p>
+                </div>
                 {% endif %}
-            </td>
-        </tr>
-    </table>
+            </div>
+        </div>
+    </div>
     {% for post in posts %}
         {% include '_post.html' %}
     {% endfor %}

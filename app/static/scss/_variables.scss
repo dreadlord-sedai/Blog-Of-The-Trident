@@ -1,0 +1,33 @@
+// Colors
+$gold: #C6A664;
+$dark: #2C2C2C;
+$blood-red: #8B0000;
+$parchment: #F5E6D3;
+
+// Text Colors
+$text-color: $parchment;
+$link-color: $gold;
+$border-color: $gold;
+
+// Typography
+$font-family-base: 'Crimson Text', serif;
+$font-family-heading: 'Cinzel', serif;
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+
+// Spacing
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 2rem;
+
+// Borders
+$border-width: 2px;
+$border-radius: 4px;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba($dark, 0.1);
+$shadow-md: 0 4px 6px rgba($dark, 0.1);
+$shadow-lg: 0 10px 15px rgba($dark, 0.1);

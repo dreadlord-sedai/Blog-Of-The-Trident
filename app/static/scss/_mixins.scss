@@ -1,0 +1,55 @@
+@use 'variables' as v;
+
+@mixin medieval-border {
+  border: v.$border-width solid v.$gold;
+  border-radius: v.$border-radius;
+  box-shadow: v.$shadow-sm;
+}
+
+@mixin parchment-background {
+  background-color: v.$parchment;
+  background-image: url('../images/parchment-texture.png');
+  background-blend-mode: multiply;
+}
+
+@mixin heading-text {
+  font-family: v.$font-family-heading;
+  font-weight: bold;
+  color: v.$gold;
+  text-transform: capitalize;
+  letter-spacing: 0.05em;
+}
+
+@mixin body-text {
+  font-family: v.$font-family-base;
+  font-size: v.$font-size-base;
+  line-height: 1.6;
+  color: v.$text-color;
+}
+
+@mixin gold-accent {
+  color: v.$gold;
+  text-shadow: 1px 1px 2px rgba(v.$dark, 0.2);
+}
+
+@mixin dark-panel {
+  background-color: v.$dark;
+  color: v.$parchment;
+  padding: v.$spacing-md;
+  @include medieval-border;
+}
+
+@mixin responsive-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 v.$spacing-md;
+}
+
+@mixin hover-effect {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: v.$shadow-md;
+  }
+}

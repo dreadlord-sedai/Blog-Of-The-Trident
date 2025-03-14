@@ -1,5 +1,13 @@
 {
+  "name": "blog-of-the-trident",
+  "version": "1.0.0",
+  "description": "A Game of Thrones themed blog",
+  "scripts": {
+    "sass-compile": "sass app/static/scss/main.scss app/static/css/main.css",
+    "sass-watch": "sass --watch app/static/scss/main.scss app/static/css/main.css"
+  },
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "sass": "^1.71.1"
   }
 }
