@@ -7,7 +7,7 @@
                 <img src="{{ user.avatar(256) }}" alt="{{ user.username }}" class="profile-avatar">
             </div>
             <div class="user-name">
-                {{ _('Lord %(username)s of House %(username)s', username=user.username) }}
+                {{ _('Lord %(username)s', username=user.username) }}
             </div>
             <div class="user-stats">
                 {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}

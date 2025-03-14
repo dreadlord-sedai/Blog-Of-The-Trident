@@ -2,7 +2,7 @@
 {% import "bootstrap_wtf.html" as wtf %}
 
 {% block content %}
-    <h1>{{ _('Greetings, Lord %(username)s of House %(username)s!', username=current_user.username) }}</h1>
+    <h1>{{ _('Greetings, Lord %(username)s!', username=current_user.username) }}</h1>
     {% if form %}
     <div class="post-form">
         <h3>{{ _('Send a Raven to the Realm') }}</h3>
