@@ -14,17 +14,17 @@
 <details>
   <summary>Click to view screenshots</summary>
   
-  ### Home Page
-  <img src="https://your-screenshot-url-1.png" alt="Home Page" width="700">
+  ### SignIn
+  <img src="./Screenshot1.png" alt="Home Page" width="700">
   
-  ### User Profile - House Stark Theme
-  <img src="https://your-screenshot-url-2.png" alt="User Profile - House Stark Theme" width="700">
+  ### Home Page (Letters)
+  <img src="./Screenshot2.png" alt="Home Page" width="700">  
   
-  ### Blog Post Creation
-  <img src="https://your-screenshot-url-3.png" alt="Blog Post Creation" width="700">
+  ### User Profile (Your House)
+  <img src="./Screenshot3.png" alt="Home Page" width="700">
   
-  ### Messaging Interface
-  <img src="https://your-screenshot-url-4.png" alt="Messaging Interface" width="700">
+  ### Explore Page (The Realm)
+  <img src="./Screenshot4.png" alt="Home Page" width="700">
 </details>
 
 ## Table of Contents
@@ -54,6 +54,7 @@ Blog of the Trident is a microblogging platform inspired by the world of A Song 
 - **User Authentication** - Secure registration and login system with house affiliations
 - **Profile Management** - Create and customize your profile with your favorite house banners and sigils
 - **Blog Creation** - Write, edit, and publish blog posts (letters) about the Seven Kingdoms
+- **Advanced Search** - Elasticsearch integration for powerful content discovery across the Seven Kingdoms
 - **Messaging System** - Send ravens (private messages) to other users
 - **Responsive Design** - Mobile-friendly interface using Bootstrap and SASS styled with ASOIF themes
 - **Database Integration** - SQLAlchemy with SQLite for efficient data management
@@ -64,6 +65,7 @@ Blog of the Trident is a microblogging platform inspired by the world of A Song 
 - **Flask**: Micro web framework for building the application
 - **SQLAlchemy**: ORM for database operations
 - **SQLite**: Lightweight database for storing user and blog data
+- **Elasticsearch**: Advanced search functionality for posts and users
 - **Bootstrap**: Frontend framework for responsive design
 - **SASS**: CSS preprocessor for advanced styling with house-themed color schemes
 - **Jinja2**: Template engine for Python
